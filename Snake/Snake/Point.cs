@@ -12,6 +12,18 @@ namespace Snake
         public int y;
         public char sym;
 
+        //конструктор, void здесь не указывается, потому что конструктор никогда ничего не возвращает
+        public Point()
+        {
+        }
+
+        public Point(int _x, int _y, char _sym)
+        {
+            x = _x;
+            y = _y;
+            sym = _sym;
+        }
+
         public void Draw()
         {
         {
