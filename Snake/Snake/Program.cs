@@ -10,13 +10,43 @@ namespace Snake
     {
         static void Main(string[] args)
         {
-            Point p1 = new Point(1, 3, '*');
-            p1.Draw();
+            Console.SetWindowSize(80, 25);
+            Console.SetBufferSize(80, 25);
 
-            Point p2 = new Point(4, 5, '#');
-            p2.Draw();
+            //отрисовка рамки
+            HorizontalLine upLine = new HorizontalLine(0, 78, 0, '+');
+            upLine.Draw();
+            HorizontalLine downLine = new HorizontalLine(0, 78, 24, '+');
+            downLine.Draw();
+            VerticalLine leftLine = new VerticalLine(24, 0, 0, '+');
+            leftLine.Draw();
+            VerticalLine RightLine = new VerticalLine(24, 0, 78, '+');
+            RightLine.Draw();
 
-            Console.ReadLine();
+            //отрисовка точек - начало хвоста змейки
+            Point p = new Point(4, 5, '*');
+            //рисуем змейку
+            Snake snake = new Snake(p, 4, Direction.RIGHT);
+            snake.Draw();
+            //snake.Move();
+
+            while (true)
+            {
+                //определеляем была ли нажата клавиша
+                if (Console.KeyAvailable)
+                {
+                    //определяем, какая клавиша была нажата
+                    ConsoleKeyInfo key = Console.ReadKey();
+                    //вызываем функцию из snake, которая определит направление движения в зивисимости от надатой клавиши
+                    snake.HandleKey(key.Key);
+                }
+                //после того, как направление змейке определилось, задержка на 100 млсек
+                System.Threading.Thread.Sleep(100);
+                //смена направления движения
+                snake.Move();
+            }
+
+            //Console.ReadLine();
         }
     }
 }
